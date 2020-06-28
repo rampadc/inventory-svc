@@ -87,10 +87,10 @@ HOSTNAME_SUFFIX=$(echo $ROUTE | sed 's/^dummy-'${TMP_PROJ}'\.//g')
 oc delete project $TMP_PROJ
 echo "Hostname suffix is ${HOSTNAME_SUFFIX}"
 
-# Wait for che to be up
+# Wait for che to be up by calling external URL of liveness check
 echo "Waiting for Che to come up..."
 while [ 1 ]; do
-  STAT=$(curl -s -w '%{http_code}' -o /dev/null http://codeready-${TARGET_PROJECT}.${HOSTNAME_SUFFIX}/dashboard/)
+  STAT=$(curl -s -w '%{http_code}' -o /dev/null http://codeready-${TARGET_PROJECT}.${HOSTNAME_SUFFIX}/api/system/state/)
   if [ "$STAT" = 200 ] ; then
     break
   fi
