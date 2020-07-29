@@ -27,7 +27,7 @@ metadata:
   name: codeready-workspaces
 spec:
   channel: latest
-  installPlanApproval: Automatic
+  installPlanApproval: Manual
   name: codeready-workspaces
   source: redhat-operators
   sourceNamespace: openshift-marketplace
@@ -90,7 +90,7 @@ echo "Hostname suffix is ${HOSTNAME_SUFFIX}"
 # Wait for che to be up by calling external URL of liveness check
 echo "Waiting for Che to come up..."
 while [ 1 ]; do
-  STAT=$(curl -s -w '%{http_code}' -o /dev/null http://codeready-${TARGET_PROJECT}.${HOSTNAME_SUFFIX}/api/system/state/)
+  STAT=$(curl -s -w '%{http_code}' -o /dev/null https://codeready-${TARGET_PROJECT}.${HOSTNAME_SUFFIX}/api/system/state/)
   if [ "$STAT" = 200 ] ; then
     break
   fi
